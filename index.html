@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Console</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 20px;
+        }
+
+        #console {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 200px;
+            overflow: auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="console"></div>
+    <input type="text" id="input" placeholder="Type JavaScript code and press Enter">
+    
+    <script>
+        const consoleDiv = document.getElementById('console');
+        const inputField = document.getElementById('input');
+
+        inputField.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                evaluateCode(inputField.value);
+                inputField.value = '';
+            }
+        });
+
+        function evaluateCode(code) {
+            try {
+                const result = eval(code);
+                logToConsole(`> ${code}`);
+                logToConsole(result);
+            } catch (error) {
+                logToConsole(`> ${code}`);
+                logToConsole(`Error: ${error.message}`);
+            }
+        }
+
+        function logToConsole(message) {
+            consoleDiv.innerHTML += `<div>${message}</div>`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>
